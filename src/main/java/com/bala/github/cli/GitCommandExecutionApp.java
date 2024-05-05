@@ -55,9 +55,7 @@ public class GitCommandExecutionApp {
         String labels = scanner.next(); //reading only one label per pull requests
 
         try {
-            GHRepository forkRepo = ghRepository.fork();
-            forkRepo.setEmailServiceHook(GitConfig.getEmailId());
-            GHPullRequest ghPullRequest = ghRepository.createPullRequest(title, forkRepo.getOwnerName()+":"+ghBranch.getName(), ghRepository.getDefaultBranch(), body);
+            GHPullRequest ghPullRequest = ghRepository.createPullRequest(title, ghRepository.getOwnerName()+":"+ghBranch.getName(), ghRepository.getDefaultBranch(), body);
             ghPullRequest.setLabels(labels); //set only one label
 //            ghPullRequest.setAssignees(); //future user assignees implementation
             System.out.println("A pull request is created at " + ghPullRequest.getHtmlUrl());
