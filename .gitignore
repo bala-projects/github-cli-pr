@@ -37,4 +37,4 @@ build/
 ### Mac OS ###
 .DS_Store
 
-git_config.properties
+git_config_dev.properties
