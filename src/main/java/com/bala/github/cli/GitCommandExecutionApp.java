@@ -44,7 +44,7 @@ public class GitCommandExecutionApp {
 
         // step4: create pullrequest using repo, given branch and base branch
 
-        System.out.println("Enter tile for the pullrequests: ");
+        /*System.out.println("Enter tile for the pullrequests: ");
         Scanner scanner = new Scanner(System.in);
         String title = scanner.next();
         System.out.println("Enter body details for the pullrequests: ");
@@ -52,16 +52,19 @@ public class GitCommandExecutionApp {
         String body = scanner.next();
         System.out.println("Enter labels for the pullrequests: ");
         scanner = new Scanner(System.in);
-        String labels = scanner.next(); //reading only one label per pull requests
+        String labels = scanner.next(); //reading only one label per pull requests*/
 
         try {
-            GHPullRequest ghPullRequest = ghRepository.createPullRequest(title, ghRepository.getOwnerName()+":"+ghBranch.getName(), ghRepository.getDefaultBranch(), body);
-            ghPullRequest.setLabels(labels); //set only one label
+//            GHPullRequest ghPullRequest = ghRepository.createPullRequest("TestTitle", ghRepository.getOwnerName()+":"+ghBranch.getName(), ghRepository.getDefaultBranch(), body);
+            GHPullRequest ghPullRequest = ghRepository.createPullRequest("TestTitle", "bala-projects:"+ghBranch.getName(), ghRepository.getDefaultBranch(), "TestBody");
+            ghPullRequest.setLabels("Test_label2"); //set only one label
 //            ghPullRequest.setAssignees(); //future user assignees implementation
+//            ghPullRequest.
             System.out.println("A pull request is created at " + ghPullRequest.getHtmlUrl());
             System.exit(0);
         } catch (IOException e) {
-            System.err.println("Error creating pull requests... Please try again...");
+            System.err.println("Error creating pull requests... Please try again..." + e.getMessage());
+            e.printStackTrace();
             System.exit(0);
         }
     }
@@ -82,13 +85,14 @@ public class GitCommandExecutionApp {
 
     private static GHBranch readAndValidateBranchName(GHRepository ghRepository) {
         System.out.println("Enter the branch name for which pull request is created");
-        Scanner scanner = new Scanner(System.in);
-        String branchName = scanner.next();
+        /*Scanner scanner = new Scanner(System.in);
+        String branchName = scanner.next();*/
         GHBranch ghBranch = null;
         try {
-            ghBranch = ghRepository.getBranch(branchName);
+            ghBranch = ghRepository.getBranch("feature/implementation2");
         } catch (IOException e) {
-            System.err.println("Entered repo name is not valid... Please try again...");
+            System.err.println("Entered branch name is not valid... Please try again...");
+            e.printStackTrace();
             System.exit(0);
         }
         return ghBranch;
